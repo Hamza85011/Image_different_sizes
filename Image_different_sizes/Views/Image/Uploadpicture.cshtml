@@ -1,0 +1,35 @@
+﻿@{
+    ViewData["Title"] = "Upload Picture";
+}
+
+<h1>Upload Picture</h1>
+
+@using (Html.BeginForm("Upload", "Image", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="fileInput">Select Image:</label>
+                <input type="file" name="file" id="fileInput" class="form-control-file" />
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <button type="submit" class="btn btn-primary">Upload</button>
+        </div>
+    </div>
+}
+
+@if (TempData["ImagePaths"] != null)
+{
+    <h2>Uploaded Images:</h2>
+    <div class="row">
+        @foreach (var imagePath in ((Dictionary<string, string>)TempData["ImagePaths"]))
+        {
+            <div class="col-md-4">
+                <img src="@imagePath.Value" alt="@imagePath.Key" style="max-width: 100%;" />
+            </div>
+        }
+    </div>
+}
